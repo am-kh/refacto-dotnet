@@ -7,12 +7,14 @@ namespace Refacto.DotNet.Application.Orders
     internal sealed class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly ProductService _productService;
+        private readonly IReadOnlyDictionary<string, IProductOrderHandler> _handlersByProductType;
+        private readonly TimeProvider _timeProvider;
 
-        public OrderService(IOrderRepository orderRepository, ProductService productService)
+        public OrderService(IOrderRepository orderRepository, IEnumerable<IProductOrderHandler> handlers, TimeProvider timeProvider)
         {
             _orderRepository = orderRepository;
-            _productService = productService;
+            _handlersByProductType = handlers.ToDictionary(h => h.ProductType);
+            _timeProvider = timeProvider;
         }
 
         /// <inheritdoc />
@@ -24,44 +26,15 @@ namespace Refacto.DotNet.Application.Orders
                 return false;
             }
 
-            foreach (Product p in order.Items ?? Enumerable.Empty<Product>())
+            // Un seul instant de référence pour tous les produits de la commande.
+            DateTime now = _timeProvider.GetLocalNow().DateTime;
+
+            foreach (Product product in order.Items ?? Enumerable.Empty<Product>())
             {
-                if (p.Type == "NORMAL")
+                // Les produits d'un type inconnu sont ignorés.
+                if (product.Type is not null && _handlersByProductType.TryGetValue(product.Type, out IProductOrderHandler? handler))
                 {
-                    if (p.Available > 0)
-                    {
-                        p.Available -= 1;
-                    }
-                    else
-                    {
-                        int leadTime = p.LeadTime;
-                        if (leadTime > 0)
-                        {
-                            _productService.NotifyDelay(leadTime, p);
-                        }
-                    }
-                }
-                else if (p.Type == "SEASONAL")
-                {
-                    if (DateTime.Now.Date > p.SeasonStartDate && DateTime.Now.Date < p.SeasonEndDate && p.Available > 0)
-                    {
-                        p.Available -= 1;
-                    }
-                    else
-                    {
-                        _productService.HandleSeasonalProduct(p);
-                    }
-                }
-                else if (p.Type == "EXPIRABLE")
-                {
-                    if (p.Available > 0 && p.ExpiryDate > DateTime.Now.Date)
-                    {
-                        p.Available -= 1;
-                    }
-                    else
-                    {
-                        _productService.HandleExpiredProduct(p);
-                    }
+                    handler.Process(product, now);
                 }
             }
 

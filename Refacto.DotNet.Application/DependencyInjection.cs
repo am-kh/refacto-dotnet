@@ -10,12 +10,14 @@ namespace Refacto.DotNet.Application
     public static class DependencyInjection
     {
         /// <summary>
-        /// Enregistre les cas d'usage et services métier de la couche Application.
+        /// Enregistre les cas d'usage et les règles de traitement par type de produit.
         /// </summary>
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             _ = services.AddScoped<IOrderService, OrderService>();
-            _ = services.AddScoped<ProductService>();
+            _ = services.AddScoped<IProductOrderHandler, NormalProductHandler>();
+            _ = services.AddScoped<IProductOrderHandler, SeasonalProductHandler>();
+            _ = services.AddScoped<IProductOrderHandler, ExpirableProductHandler>();
             return services;
         }
     }

@@ -13,10 +13,11 @@ namespace Refacto.DotNet.Infrastructure
     public static class DependencyInjection
     {
         /// <summary>
-        /// Enregistre la persistance (EF Core en mémoire) et le service de notification.
+        /// Enregistre la persistance (EF Core en mémoire), le service de notification et l'horloge système.
         /// </summary>
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
+            _ = services.AddSingleton(TimeProvider.System);
             _ = services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("InMemoryDb"));
             _ = services.AddScoped<IOrderRepository, OrderRepository>();
             _ = services.AddScoped<INotificationService, NotificationService>();
