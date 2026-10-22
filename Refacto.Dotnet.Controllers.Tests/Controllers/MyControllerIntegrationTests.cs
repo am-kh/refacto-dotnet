@@ -1,12 +1,13 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net;
+using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using Refacto.DotNet.Controllers.Database.Context;
-using Refacto.DotNet.Controllers.Dtos.Product;
-using Refacto.DotNet.Controllers.Entities;
+using Refacto.DotNet.Controllers.Dtos.Orders;
 using Refacto.DotNet.Controllers.Services;
+using Refacto.DotNet.Domain.Entities;
+using Refacto.DotNet.Infrastructure.Persistence;
 
 namespace Refacto.Dotnet.Controllers.Tests.Controllers
 {
@@ -83,6 +84,16 @@ namespace Refacto.Dotnet.Controllers.Tests.Controllers
             _ = response.EnsureSuccessStatusCode();
             ProcessOrderResponse? body = await response.Content.ReadFromJsonAsync<ProcessOrderResponse>();
             Assert.Equal(orderId, body?.id);
+        }
+
+        // Vérifie qu'une commande inexistante renvoie 404 sans aucune notification.
+        [Fact]
+        public async Task ProcessOrder_CommandeIntrouvable_RenvoieNotFound()
+        {
+            HttpResponseMessage response = await PostProcessOrder(orderId: 999);
+
+            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            _mockNotificationService.VerifyNoOtherCalls();
         }
 
         // ---------- NORMAL ----------
