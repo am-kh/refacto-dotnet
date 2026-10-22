@@ -50,7 +50,7 @@ namespace Refacto.DotNet.Tests.Integration
 
             _ = response.EnsureSuccessStatusCode();
             ProcessOrderResponse? body = await response.Content.ReadFromJsonAsync<ProcessOrderResponse>();
-            Assert.Equal(orderId, body?.id);
+            Assert.Equal(orderId, body?.Id);
         }
 
         // Vérifie qu'une commande inexistante renvoie 404 sans aucune notification.

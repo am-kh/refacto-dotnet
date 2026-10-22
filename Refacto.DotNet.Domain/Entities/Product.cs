@@ -31,6 +31,11 @@
         public string? Name { get; set; }
 
         /// <summary>
+        /// Nom utilisé dans les notifications client (vide si le produit n'a pas de nom).
+        /// </summary>
+        public string NotificationName => Name ?? string.Empty;
+
+        /// <summary>
         /// Date d'expiration (produits EXPIRABLE).
         /// </summary>
         public DateTime? ExpiryDate { get; set; }

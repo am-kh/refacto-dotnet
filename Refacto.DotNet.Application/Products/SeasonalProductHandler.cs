@@ -19,24 +19,22 @@ namespace Refacto.DotNet.Application.Products
         /// <inheritdoc />
         public void Process(Product product, DateTime now)
         {
-            string productName = product.Name ?? string.Empty;
-
             if (product.IsInSeason(now) && product.HasStock)
             {
                 product.DecrementStock();
             }
             else if (product.IsRestockedAfterSeasonEnd(now))
             {
-                _notificationService.SendOutOfStockNotification(productName);
+                _notificationService.SendOutOfStockNotification(product.NotificationName);
                 product.ClearStock();
             }
             else if (product.IsBeforeSeason(now))
             {
-                _notificationService.SendOutOfStockNotification(productName);
+                _notificationService.SendOutOfStockNotification(product.NotificationName);
             }
             else
             {
-                _notificationService.SendDelayNotification(product.LeadTime, productName);
+                _notificationService.SendDelayNotification(product.LeadTime, product.NotificationName);
             }
         }
     }

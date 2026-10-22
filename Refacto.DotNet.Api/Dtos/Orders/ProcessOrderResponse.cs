@@ -3,6 +3,6 @@
     /// <summary>
     /// Réponse du traitement d'une commande.
     /// </summary>
-    /// <param name="id">Identifiant de la commande traitée.</param>
-    public sealed record ProcessOrderResponse(long id);
+    /// <param name="Id">Identifiant de la commande traitée.</param>
+    public sealed record ProcessOrderResponse(long Id);
 }

@@ -26,7 +26,7 @@ namespace Refacto.DotNet.Application.Products
             else
             {
                 // Sans date d'expiration, une exception est levée (comportement existant conservé).
-                _notificationService.SendExpirationNotification(product.Name ?? string.Empty, product.ExpiryDate!.Value);
+                _notificationService.SendExpirationNotification(product.NotificationName, product.ExpiryDate!.Value);
                 product.ClearStock();
             }
         }

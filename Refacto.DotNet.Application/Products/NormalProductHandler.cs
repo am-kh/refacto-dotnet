@@ -25,7 +25,7 @@ namespace Refacto.DotNet.Application.Products
             }
             else if (product.LeadTime > 0)
             {
-                _notificationService.SendDelayNotification(product.LeadTime, product.Name ?? string.Empty);
+                _notificationService.SendDelayNotification(product.LeadTime, product.NotificationName);
             }
         }
     }
