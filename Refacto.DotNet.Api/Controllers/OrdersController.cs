@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Refacto.DotNet.Api.Dtos.Orders;
 using Refacto.DotNet.Application.Orders;
-using Refacto.DotNet.Controllers.Dtos.Orders;
 
-namespace Refacto.DotNet.Controllers.Controllers
+namespace Refacto.DotNet.Api.Controllers
 {
     /// <summary>
     /// Points d'entrée HTTP liés aux commandes.

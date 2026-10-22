@@ -3,14 +3,14 @@ using Refacto.DotNet.Application.Products;
 using Refacto.DotNet.Controllers.Services;
 using Refacto.DotNet.Domain.Entities;
 
-namespace Refacto.DotNet.Controllers.Tests.Services
+namespace Refacto.DotNet.Tests.Unit
 {
-    public class MyUnitTests
+    public sealed class ProductServiceTests
     {
         private readonly Mock<INotificationService> _mockNotificationService;
         private readonly ProductService _productService;
 
-        public MyUnitTests()
+        public ProductServiceTests()
         {
             _mockNotificationService = new Mock<INotificationService>();
             _productService = new ProductService(_mockNotificationService.Object);
@@ -18,7 +18,7 @@ namespace Refacto.DotNet.Controllers.Tests.Services
 
         // Vérifie que la notification de délai est envoyée sans modifier le stock ni le délai du produit.
         [Fact]
-        public void Test()
+        public void NotifyDelay_ProduitEnRupture_EnvoieLaNotificationDeDelaiSansModifierLeProduit()
         {
             // GIVEN
             Product product = new()

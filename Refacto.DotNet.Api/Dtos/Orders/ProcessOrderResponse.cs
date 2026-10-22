@@ -1,4 +1,4 @@
-﻿namespace Refacto.DotNet.Controllers.Dtos.Orders
+﻿namespace Refacto.DotNet.Api.Dtos.Orders
 {
     /// <summary>
     /// Réponse du traitement d'une commande.

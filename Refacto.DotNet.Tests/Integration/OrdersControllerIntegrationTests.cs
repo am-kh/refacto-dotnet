@@ -4,21 +4,21 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using Refacto.DotNet.Controllers.Dtos.Orders;
+using Refacto.DotNet.Api.Dtos.Orders;
 using Refacto.DotNet.Controllers.Services;
 using Refacto.DotNet.Domain.Entities;
 using Refacto.DotNet.Infrastructure.Persistence;
 
-namespace Refacto.Dotnet.Controllers.Tests.Controllers
+namespace Refacto.DotNet.Tests.Integration
 {
     [Collection("Sequential")]
-    public class MyControllerIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
+    public sealed class OrdersControllerIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly WebApplicationFactory<Program> _factory;
         private readonly AppDbContext _context;
         private readonly Mock<INotificationService> _mockNotificationService;
 
-        public MyControllerIntegrationTests(WebApplicationFactory<Program> factory)
+        public OrdersControllerIntegrationTests(WebApplicationFactory<Program> factory)
         {
             _mockNotificationService = new Mock<INotificationService>();
 
@@ -54,7 +54,7 @@ namespace Refacto.Dotnet.Controllers.Tests.Controllers
 
         // Vérifie que le traitement d'une commande aboutit et que la commande existe toujours en base.
         [Fact]
-        public async Task ProcessOrderShouldReturn()
+        public async Task ProcessOrder_CommandeExistante_RenvoieOk()
         {
             HttpClient client = _factory.CreateClient();
 

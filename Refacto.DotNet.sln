@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refacto.DotNet.Controllers", "Refacto.DotNet.Controllers\Refacto.DotNet.Controllers.csproj", "{959D9DCF-CEDF-4C78-864D-8FAF9C273670}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refacto.DotNet.Api", "Refacto.DotNet.Api\Refacto.DotNet.Api.csproj", "{959D9DCF-CEDF-4C78-864D-8FAF9C273670}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refacto.Dotnet.Controllers.Tests", "Refacto.Dotnet.Controllers.Tests\Refacto.Dotnet.Controllers.Tests.csproj", "{D94EB8F1-7263-46EB-888F-CDFD98945776}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refacto.DotNet.Tests", "Refacto.DotNet.Tests\Refacto.DotNet.Tests.csproj", "{D94EB8F1-7263-46EB-888F-CDFD98945776}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refacto.DotNet.Domain", "Refacto.DotNet.Domain\Refacto.DotNet.Domain.csproj", "{C8947E76-8D97-44D7-A996-F89137768FFE}"
 EndProject

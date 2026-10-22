@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Refacto.DotNet.Controllers\Refacto.DotNet.Controllers.csproj" />
+    <ProjectReference Include="..\Refacto.DotNet.Api\Refacto.DotNet.Api.csproj" />
   </ItemGroup>
 
 </Project>
